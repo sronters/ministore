@@ -1,0 +1,10 @@
+node_modules
+.next
+backend/.venv
+backend/minbasket.db
+*.db
+.git
+coverage
+htmlcov
+npm-debug.log*
+tsconfig.tsbuildinfo

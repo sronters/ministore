@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --app-bg: var(--tg-theme-bg-color, #f7f7f5);
+  --app-text: var(--tg-theme-text-color, #171717);
+  --app-hint: var(--tg-theme-hint-color, #71717a);
+  --app-link: var(--tg-theme-link-color, #2aabee);
+  --app-button: var(--tg-theme-button-color, #2aabee);
+  --app-button-text: var(--tg-theme-button-text-color, #ffffff);
+  --app-secondary-bg: var(--tg-theme-secondary-bg-color, #efefed);
+  --app-header-bg: var(--tg-theme-header-bg-color, #f7f7f5);
+  --app-accent-text: var(--tg-theme-accent-text-color, #2481cc);
+  --app-section-bg: var(--tg-theme-section-bg-color, #ffffff);
+  --app-section-header: var(--tg-theme-section-header-text-color, #71717a);
+  --app-subtitle: var(--tg-theme-subtitle-text-color, #71717a);
+  --app-destructive: var(--tg-theme-destructive-text-color, #d14b45);
+  --app-border: #e7e7e4;
+  --app-success: #21845a;
+  --app-warning: #9a6a19;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--app-text);
+  background: var(--app-bg);
+  font-family: var(--font-geist-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-y: scroll;
+}
+
+button,
+input,
+select {
+  appearance: none;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button:active,
+a:active {
+  transform: none;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-shell {
+  min-height: 100svh;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--app-bg);
+  padding: calc(12px + env(safe-area-inset-top)) 14px calc(82px + env(safe-area-inset-bottom));
+}
+
+.surface {
+  border: 1px solid var(--app-border);
+  background: var(--app-section-bg);
+  border-radius: 16px;
+}
+
+.focus-ring:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--app-button), transparent 70%);
+  outline-offset: 3px;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
