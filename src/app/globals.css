@@ -19,6 +19,12 @@
   --app-border: #e7e7e4;
   --app-success: #21845a;
   --app-warning: #9a6a19;
+  --app-viewport-height: var(--tg-viewport-height, 100svh);
+  --app-viewport-stable-height: var(--tg-viewport-stable-height, 100svh);
+  --app-safe-top: max(env(safe-area-inset-top), var(--tg-safe-area-inset-top, 0px));
+  --app-safe-bottom: max(env(safe-area-inset-bottom), var(--tg-safe-area-inset-bottom, 0px));
+  --app-content-safe-top: max(env(safe-area-inset-top), var(--tg-content-safe-area-inset-top, 0px));
+  --app-content-safe-bottom: max(env(safe-area-inset-bottom), var(--tg-content-safe-area-inset-bottom, 0px));
 }
 
 * {
@@ -28,6 +34,8 @@
 html,
 body {
   min-height: 100%;
+  width: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -36,6 +44,7 @@ body {
   background: var(--app-bg);
   font-family: var(--font-geist-sans), sans-serif;
   -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
   overflow-y: scroll;
 }
 
@@ -50,11 +59,19 @@ button {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease,
+    opacity 160ms ease;
 }
 
 button:active,
 a:active {
-  transform: none;
+  opacity: 0.78;
+  filter: saturate(0.96);
 }
 
 button:disabled {
@@ -66,14 +83,44 @@ a {
   color: inherit;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease,
+    opacity 160ms ease;
 }
 
 .app-shell {
-  min-height: 100svh;
-  max-width: 480px;
+  width: min(100%, 480px);
+  min-height: var(--app-viewport-stable-height);
   margin: 0 auto;
   background: var(--app-bg);
-  padding: calc(12px + env(safe-area-inset-top)) 14px calc(82px + env(safe-area-inset-bottom));
+  padding: calc(12px + var(--app-content-safe-top)) 14px calc(82px + var(--app-content-safe-bottom));
+  overflow-x: clip;
+}
+
+.app-fixed-bottom {
+  left: max(0px, calc((100vw - 480px) / 2));
+  right: max(0px, calc((100vw - 480px) / 2));
+}
+
+.app-bottom-nav {
+  padding-bottom: calc(8px + var(--app-content-safe-bottom));
+}
+
+.app-bottom-action {
+  padding-bottom: calc(12px + var(--app-content-safe-bottom));
+}
+
+.app-sticky-top {
+  top: 0;
+  padding-top: var(--app-content-safe-top);
+}
+
+.app-overlay {
+  min-height: var(--app-viewport-height);
 }
 
 .surface {

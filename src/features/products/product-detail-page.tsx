@@ -67,8 +67,8 @@ export function ProductDetailPage() {
                 <div key={offer.id} className="py-3">
                   <div className="flex items-center justify-between gap-3">
                     <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <p className="text-[15px] font-semibold">{offer.store.name}</p>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="min-w-0 text-[15px] font-semibold">{offer.store.name}</p>
                         {index === 0 && offer.inStock ? (
                           <span className="rounded-[8px] bg-[var(--app-secondary-bg)] px-2 py-1 text-[11px] font-semibold text-[var(--app-success)]">
                             Лучшая цена
@@ -79,7 +79,7 @@ export function ProductDetailPage() {
                         {offer.inStock ? "В наличии" : "Нет в наличии"} · {formatRelativeDate(offer.updatedAt)}
                       </p>
                     </div>
-                    <div className="text-right">
+                    <div className="shrink-0 text-right">
                       <p className="text-[17px] font-semibold">{formatMoney(offer.price)}</p>
                       {offer.oldPrice ? <p className="text-[12px] text-[var(--app-hint)] line-through">{formatMoney(offer.oldPrice)}</p> : null}
                     </div>
@@ -97,7 +97,7 @@ export function ProductDetailPage() {
             </div>
           </section>
 
-          <div className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-[480px] border-t border-[var(--app-border)] bg-[var(--app-section-bg)] p-3 pb-[calc(12px+env(safe-area-inset-bottom))]">
+          <div className="app-fixed-bottom app-bottom-action fixed bottom-0 z-30 border-t border-[var(--app-border)] bg-[var(--app-section-bg)] p-3">
             {cartItem ? (
               <QuantityControl
                 value={cartItem.quantity}

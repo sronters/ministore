@@ -44,8 +44,8 @@ export function ComparisonPage() {
         <section className="mt-4">
           <div className="surface p-4">
             <p className="text-[13px] font-semibold uppercase tracking-[0.04em] text-[var(--app-section-header)]">Лучший вариант</p>
-            <div className="mt-3 flex items-end justify-between gap-3">
-              <div>
+            <div className="mt-3 flex flex-wrap items-end justify-between gap-3">
+              <div className="min-w-0">
                 <h2 className="text-[24px] font-semibold">{comparison.data.bestStore.store.name}</h2>
                 <p className="mt-1 text-[14px] text-[var(--app-subtitle)]">
                   {comparison.data.bestStore.complete
@@ -53,7 +53,7 @@ export function ComparisonPage() {
                     : `Доступно ${comparison.data.bestStore.availableItemsCount} из ${comparison.data.bestStore.totalItemsCount}`}
                 </p>
               </div>
-              <p className="text-[24px] font-semibold">{formatMoney(comparison.data.bestStore.total)}</p>
+              <p className="shrink-0 text-[24px] font-semibold">{formatMoney(comparison.data.bestStore.total)}</p>
             </div>
             {comparison.data.maximumSaving !== null && comparison.data.maximumSaving > 0 ? (
               <p className="mt-3 text-[15px] font-medium text-[var(--app-success)]">
@@ -70,7 +70,7 @@ export function ComparisonPage() {
             {comparison.data.stores.map((store) => (
               <div key={store.store.id} className="py-3">
                 <div className="flex items-center justify-between gap-3">
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-[16px] font-semibold">{store.store.name}</p>
                     <p className={`mt-1 text-[13px] ${store.complete ? "text-[var(--app-success)]" : "text-[var(--app-destructive)]"}`}>
                       {store.complete
@@ -78,7 +78,7 @@ export function ComparisonPage() {
                         : `Доступно ${store.availableItemsCount} из ${store.totalItemsCount}`}
                     </p>
                   </div>
-                  <div className="text-right">
+                  <div className="shrink-0 text-right">
                     <p className="text-[18px] font-semibold">{formatMoney(store.total)}</p>
                     {store.differenceFromBest !== null && store.differenceFromBest > 0 ? (
                       <p className="text-[12px] text-[var(--app-subtitle)]">+{formatMoney(store.differenceFromBest)}</p>

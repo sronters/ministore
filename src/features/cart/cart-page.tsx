@@ -85,13 +85,13 @@ export function CartPage() {
       </section>
 
       <section className="surface mt-4 p-4">
-        <div className="flex items-center justify-between text-[15px]">
+        <div className="flex items-center justify-between gap-3 text-[15px]">
           <span className="text-[var(--app-subtitle)]">Позиций</span>
-          <span className="font-semibold">{items.length}</span>
+          <span className="shrink-0 font-semibold">{items.length}</span>
         </div>
-        <div className="mt-2 flex items-center justify-between text-[15px]">
+        <div className="mt-2 flex items-center justify-between gap-3 text-[15px]">
           <span className="text-[var(--app-subtitle)]">Примерно от</span>
-          <span className="font-semibold">{formatMoney(total)}</span>
+          <span className="shrink-0 font-semibold">{formatMoney(total)}</span>
         </div>
         <Link href="/cart/comparison" className="focus-ring mt-4 flex h-12 items-center justify-center rounded-[12px] bg-[var(--app-button)] font-semibold text-[var(--app-button-text)]">
           Сравнить магазины

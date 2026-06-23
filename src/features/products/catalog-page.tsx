@@ -72,7 +72,7 @@ export function CatalogPage({ searchMode = false }: { searchMode?: boolean }) {
 
   return (
     <AppShell>
-      <div className="sticky top-0 z-20 -mx-3 bg-[var(--app-bg)] px-3 pb-3 pt-[env(safe-area-inset-top)]">
+      <div className="app-sticky-top sticky z-20 -mx-3 bg-[var(--app-bg)] px-3 pb-3">
         <div className="mb-3 flex items-center justify-between">
           <h1 className="text-[26px] font-semibold tracking-[-0.02em]">{title}</h1>
           <button
@@ -112,11 +112,11 @@ export function CatalogPage({ searchMode = false }: { searchMode?: boolean }) {
       </section>
 
       {showFilters ? (
-        <div className="fixed inset-0 z-40 flex items-end bg-black/20" onClick={() => setShowFilters(false)}>
+        <div className="app-overlay fixed inset-0 z-40 flex items-end bg-black/20" onClick={() => setShowFilters(false)}>
           <form
             onClick={(event) => event.stopPropagation()}
             onSubmit={form.handleSubmit(() => setShowFilters(false))}
-            className="mx-auto w-full max-w-[480px] rounded-t-[16px] bg-[var(--app-section-bg)] p-4 shadow-[0_-10px_30px_rgba(0,0,0,0.08)]"
+            className="app-bottom-action mx-auto max-h-[min(82vh,520px)] w-full max-w-[480px] overflow-y-auto rounded-t-[16px] bg-[var(--app-section-bg)] p-4 shadow-[0_-10px_30px_rgba(0,0,0,0.08)]"
           >
             <h2 className="text-[19px] font-semibold">Фильтры</h2>
             <label className="mt-4 block text-[14px] font-medium">

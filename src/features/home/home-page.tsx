@@ -69,12 +69,12 @@ export function HomePage() {
       </section>
 
       {cartItems.length > 0 ? (
-        <Link href="/cart" className="surface mt-5 flex items-center justify-between p-4">
-          <div>
+        <Link href="/cart" className="surface mt-5 flex items-center justify-between gap-3 p-4">
+          <div className="min-w-0">
             <p className="text-[15px] font-semibold">В корзине {cartItems.length} товара</p>
             <p className="text-[13px] text-[var(--app-subtitle)]">примерно от {formatMoney(approximateTotal)}</p>
           </div>
-          <span className="text-[15px] font-semibold text-[var(--app-button)]">Сравнить цены</span>
+          <span className="shrink-0 text-[15px] font-semibold text-[var(--app-button)]">Сравнить цены</span>
         </Link>
       ) : null}
 

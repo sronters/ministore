@@ -11,11 +11,11 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
   const [initError, setInitError] = useState<string | null>(null);
   const [isInitializing, setIsInitializing] = useState(true);
 
-  const initialize = () => {
+  const initialize = async () => {
     setInitError(null);
     setIsInitializing(true);
     try {
-      initTelegramApp();
+      await initTelegramApp();
       apiClient
         .authTelegram(getTelegramInitData())
         .then((response) => {
@@ -31,7 +31,9 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    const timer = window.setTimeout(initialize, 0);
+    const timer = window.setTimeout(() => {
+      void initialize();
+    }, 0);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -46,7 +48,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
 
 function LoadingScreen() {
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-[var(--app-bg)] px-6">
+    <div className="app-overlay fixed inset-0 z-50 grid place-items-center bg-[var(--app-bg)] px-6">
       <div className="w-full max-w-[280px] text-center">
         <p className="text-[24px] font-semibold tracking-[-0.02em]">{appConfig.name}</p>
         <div className="mx-auto mt-4 h-1.5 w-32 overflow-hidden rounded-full bg-[var(--app-secondary-bg)]">
@@ -60,7 +62,7 @@ function LoadingScreen() {
 
 function InitError({ message, onRetry }: { message: string; onRetry: () => void }) {
   return (
-    <div className="mx-auto max-w-[480px] px-4 py-3 text-sm text-[var(--app-destructive)]">
+    <div className="mx-auto w-full max-w-[480px] px-4 py-3 text-sm text-[var(--app-destructive)]">
       <p>{message}</p>
       <button
         type="button"

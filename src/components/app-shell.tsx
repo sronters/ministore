@@ -25,7 +25,7 @@ function BottomNav() {
   const count = useCartStore((state) => state.items.length);
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-[480px] border-t border-[var(--app-border)] bg-[var(--app-section-bg)] px-3 pb-[calc(8px+env(safe-area-inset-bottom))] pt-2 shadow-[0_-6px_18px_rgba(0,0,0,0.04)]">
+    <nav className="app-fixed-bottom app-bottom-nav fixed bottom-0 z-30 border-t border-[var(--app-border)] bg-[var(--app-section-bg)] px-3 pt-2 shadow-[0_-6px_18px_rgba(0,0,0,0.04)]">
       <div className="grid grid-cols-3">
         {navItems.map((item) => {
           const Icon = item.icon;

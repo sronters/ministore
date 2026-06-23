@@ -41,8 +41,11 @@ declare global {
     Telegram?: {
       WebApp?: TelegramWebApp;
     };
+    __telegramSdkPromise?: Promise<void>;
   }
 }
+
+const telegramSdkUrl = "https://telegram.org/js/telegram-web-app.js";
 
 function mockWebApp(): TelegramWebApp {
   const isDevelopment = process.env.NODE_ENV === "development";
@@ -89,7 +92,36 @@ export function getTelegramWebApp(): TelegramWebApp {
   return window.Telegram?.WebApp ?? mockWebApp();
 }
 
-export function initTelegramApp(): TelegramWebApp {
+export function loadTelegramSdk(): Promise<void> {
+  if (typeof window === "undefined" || window.Telegram?.WebApp) {
+    return Promise.resolve();
+  }
+
+  if (window.__telegramSdkPromise) {
+    return window.__telegramSdkPromise;
+  }
+
+  window.__telegramSdkPromise = new Promise((resolve) => {
+    const existingScript = document.querySelector<HTMLScriptElement>(`script[src="${telegramSdkUrl}"]`);
+    if (existingScript) {
+      existingScript.addEventListener("load", () => resolve(), { once: true });
+      existingScript.addEventListener("error", () => resolve(), { once: true });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = telegramSdkUrl;
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => resolve();
+    document.head.appendChild(script);
+  });
+
+  return window.__telegramSdkPromise;
+}
+
+export async function initTelegramApp(): Promise<TelegramWebApp> {
+  await loadTelegramSdk();
   const app = getTelegramWebApp();
   app.ready();
   app.expand();
