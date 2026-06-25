@@ -1,0 +1,47 @@
+[
+  {
+    "external_id": "arbuz_1001",
+    "name": "Молоко FoodMaster 2.5%, 1 л",
+    "brand": "FoodMaster",
+    "category": "Молочные продукты",
+    "image_url": "https://example.kz/products/milk.jpg",
+    "product_url": "https://example.kz/products/arbuz_1001",
+    "barcode": "4870000000000",
+    "package_value": 1,
+    "package_unit": "l",
+    "price": 549,
+    "old_price": null,
+    "in_stock": true,
+    "updated_at": "2026-06-25T03:40:00+05:00"
+  },
+  {
+    "external_id": "arbuz_1002",
+    "name": "Яйца Казгер-Кус C1, 10 шт.",
+    "brand": "Казгер-Кус",
+    "category": "Яйца",
+    "image_url": "https://example.kz/products/eggs.jpg",
+    "product_url": "https://example.kz/products/arbuz_1002",
+    "barcode": "4871111111111",
+    "package_value": 10,
+    "package_unit": "pcs",
+    "price": 799,
+    "old_price": 849,
+    "in_stock": true,
+    "updated_at": "2026-06-25T03:40:00+05:00"
+  },
+  {
+    "external_id": "arbuz_1003",
+    "name": "Хлеб пшеничный, 500 г",
+    "brand": "Аксай",
+    "category": "Хлеб",
+    "image_url": "https://example.kz/products/bread.jpg",
+    "product_url": "https://example.kz/products/arbuz_1003",
+    "barcode": null,
+    "package_value": 500,
+    "package_unit": "g",
+    "price": 255,
+    "old_price": null,
+    "in_stock": true,
+    "updated_at": "2026-06-25T03:40:00+05:00"
+  }
+]

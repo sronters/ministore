@@ -1,0 +1,13 @@
+{
+  "store": "arbuz",
+  "checked_at": "2026-06-24T22:46:55.634201Z",
+  "total_products": 3,
+  "in_stock_products": 3,
+  "unique_barcodes": 2,
+  "duplicate_external_ids": [],
+  "missing_barcode_count": 1,
+  "missing_package_count": 0,
+  "missing_image_count": 0,
+  "missing_product_url_count": 0,
+  "issues": []
+}
