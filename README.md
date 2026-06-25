@@ -18,14 +18,14 @@ The main flow is:
 ```text
 Telegram Bot (aiogram)
   -> Telegram Mini App (Next.js)
-  -> API client mock provider or FastAPI /api/v1
+  -> FastAPI /api/v1
   -> PostgreSQL for users and carts
-  -> mock catalog repository until parser backend is ready
+  -> parser-backed grocery catalog seed files
 ```
 
-Frontend never imports mock data directly from components. UI uses `src/lib/api/client.ts`, which switches providers by environment.
+Frontend never imports catalog data directly from components. UI uses `src/lib/api/client.ts`, which calls the FastAPI backend.
 
-Backend stores only user/cart data. Product catalog is a mock repository now and can be replaced by another developer's parser/catalog API.
+Backend stores users and carts in SQLAlchemy and serves product catalog data from normalized parser output in `data/*_products.json`.
 
 ## Stack
 
@@ -63,14 +63,7 @@ npm.cmd run dev
 
 Frontend runs at `http://localhost:3000`.
 
-Default frontend mode is mock API:
-
-```env
-NEXT_PUBLIC_USE_MOCK_API=true
-NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
-```
-
-Set `NEXT_PUBLIC_USE_MOCK_API=false` to use FastAPI.
+Run the backend first; the frontend calls `NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1`.
 
 ## Local Backend
 
@@ -129,7 +122,6 @@ FRONTEND_URL=http://localhost:3000
 NEXT_PUBLIC_APP_NAME=MinBasket
 NEXT_PUBLIC_APP_DESCRIPTION=Сравнение цен на продукты
 NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
-NEXT_PUBLIC_USE_MOCK_API=true
 NEXT_PUBLIC_TELEGRAM_BOT_USERNAME=
 NEXT_PUBLIC_ACCENT_COLOR=#2AABEE
 ```
@@ -155,7 +147,7 @@ Backend verifies Telegram initData using the official HMAC algorithm:
 - creates or returns user;
 - returns an access token.
 
-In development, if `TELEGRAM_BOT_TOKEN` is empty and `initData` is empty, backend returns a safe mock user.
+In development, if `TELEGRAM_BOT_TOKEN` is empty and `initData` is empty, backend returns a local development user.
 
 ## API Contract
 
@@ -176,38 +168,26 @@ DELETE /api/v1/cart
 GET /api/v1/cart/comparison
 ```
 
-## Mock API
+## Parser-backed Catalog
 
-Mock catalog includes:
-
-- 30 products in frontend mock provider;
-- 8 categories;
-- 3 stores: Small, Arbuz, Magnum;
-- discounts;
-- missing products;
-- stale update dates;
-- products without images;
-- products with same brand and different volumes.
-
-Mock data is in `src/mocks/catalog.ts`.
-
-## Connecting Real Catalog API
-
-Keep UI unchanged and replace provider behavior in:
+The application serves normalized product data from parser output files:
 
 ```text
-src/lib/api/client.ts
-src/lib/api/http-client.ts
+data/arbuz_astana_products.json
+data/arbuz_almaty_combined_products.json
+data/arbuz_live_products.json
+data/magnum_live_products.json
+data/small_live_products.json
+backend/app/repositories/catalog.py
 ```
 
-Set:
+Add or refresh a source by producing the same normalized parser schema used by `backend/app/parsers/schemas.py`, then include that file in `CatalogConfig`.
 
-```env
-NEXT_PUBLIC_USE_MOCK_API=false
-NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
-```
+Current parser sources:
 
-The real API should keep stable product IDs and return prices as numbers, ISO dates, and standardized package units.
+- Arbuz: saved/live HTML collection pages.
+- Magnum: live public API at `https://magnum.kz:1337/api/products`.
+- Small: saved public discount snapshot text, because `small.kz` blocks server-side requests with 403.
 
 ## Tests
 
@@ -265,7 +245,7 @@ Set the final HTTPS frontend URL in BotFather as the Web App URL.
 
 - Astana only.
 - Basket comparison is by one store, not split across stores.
-- Product catalog is mock-backed until parser integration.
+- Product catalog is parser-backed through normalized seed files until live scheduled ingestion is enabled.
 - No price history.
 - No receipt scanning.
 - No barcode scanning.

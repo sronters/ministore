@@ -47,7 +47,7 @@ declare global {
 
 const telegramSdkUrl = "https://telegram.org/js/telegram-web-app.js";
 
-function mockWebApp(): TelegramWebApp {
+function fallbackWebApp(): TelegramWebApp {
   const isDevelopment = process.env.NODE_ENV === "development";
   return {
     initData: "",
@@ -88,8 +88,8 @@ function mockWebApp(): TelegramWebApp {
 }
 
 export function getTelegramWebApp(): TelegramWebApp {
-  if (typeof window === "undefined") return mockWebApp();
-  return window.Telegram?.WebApp ?? mockWebApp();
+  if (typeof window === "undefined") return fallbackWebApp();
+  return window.Telegram?.WebApp ?? fallbackWebApp();
 }
 
 export function loadTelegramSdk(): Promise<void> {

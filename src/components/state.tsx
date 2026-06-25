@@ -46,9 +46,5 @@ export function EmptyState({ title, body }: { title: string; body: string }) {
 }
 
 export function OfflineBanner() {
-  return (
-    <div className="mb-3 rounded-[12px] border border-[var(--app-border)] bg-[var(--app-secondary-bg)] px-3 py-2 text-[13px] font-medium text-[var(--app-subtitle)]">
-      Нет подключения. Показываем сохранённые данные.
-    </div>
-  );
+  return null;
 }

@@ -3,6 +3,7 @@
 import { House, LayoutGrid, ShoppingBasket } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ScrollAccelerator } from "@/components/scroll-accelerator";
 import { useCartStore } from "@/stores/cart-store";
 
 const navItems = [
@@ -14,6 +15,7 @@ const navItems = [
 export function AppShell({ children, hideNav = false }: { children: React.ReactNode; hideNav?: boolean }) {
   return (
     <div className="app-shell">
+      <ScrollAccelerator />
       {children}
       {hideNav ? null : <BottomNav />}
     </div>

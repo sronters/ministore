@@ -1,10 +1,10 @@
 from fastapi import APIRouter, HTTPException, Query
 
-from app.repositories.mock_catalog import MockCatalogRepository
+from app.repositories.catalog import catalog_repository
 from app.schemas.catalog import ProductBatchIn, ProductDetailsOut, ProductSearchOut
 
 router = APIRouter(tags=["catalog"])
-repo = MockCatalogRepository()
+repo = catalog_repository
 
 
 @router.get("/products/search", response_model=ProductSearchOut)

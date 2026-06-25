@@ -1,0 +1,38 @@
+{
+  "store": "magnum",
+  "checked_at": "2026-06-25T19:46:03.484399Z",
+  "total_products": 80,
+  "in_stock_products": 80,
+  "unique_barcodes": 70,
+  "duplicate_external_ids": [],
+  "missing_barcode_count": 10,
+  "missing_package_count": 4,
+  "missing_image_count": 0,
+  "missing_product_url_count": 0,
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "missing_package",
+      "message": "Package value/unit is missing; matching quality will be lower.",
+      "external_id": "3054"
+    },
+    {
+      "severity": "warning",
+      "code": "missing_package",
+      "message": "Package value/unit is missing; matching quality will be lower.",
+      "external_id": "3066"
+    },
+    {
+      "severity": "warning",
+      "code": "missing_package",
+      "message": "Package value/unit is missing; matching quality will be lower.",
+      "external_id": "242986"
+    },
+    {
+      "severity": "warning",
+      "code": "missing_package",
+      "message": "Package value/unit is missing; matching quality will be lower.",
+      "external_id": "243034"
+    }
+  ]
+}

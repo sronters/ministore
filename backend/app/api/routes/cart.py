@@ -9,13 +9,13 @@ from app.api.deps import current_user
 from app.db.session import get_session
 from app.models.cart import Cart, CartItem
 from app.models.user import User
-from app.repositories.mock_catalog import MockCatalogRepository
+from app.repositories.catalog import catalog_repository
 from app.schemas.cart import CartItemCreate, CartItemOut, CartItemUpdate, CartOut
 from app.schemas.catalog import CartComparisonOut
 from app.services.comparison import compare_cart
 
 router = APIRouter(prefix="/cart", tags=["cart"])
-catalog = MockCatalogRepository()
+catalog = catalog_repository
 
 
 async def get_user_cart(session: AsyncSession, user: User) -> Cart:

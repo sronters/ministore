@@ -9,6 +9,8 @@ from app.parsers.quality import build_quality_report
 from app.parsers.schemas import ParsedProduct, StoreSlug
 from app.parsers.sources.arbuz import ArbuzParser
 from app.parsers.sources.json_file import JsonFileParser
+from app.parsers.sources.magnum import MagnumParser
+from app.parsers.sources.small import SmallParser
 
 
 def _parse_args() -> argparse.Namespace:
@@ -16,6 +18,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--store", choices=["arbuz", "small", "magnum", "airba"], required=True)
     parser.add_argument("--input-json", type=Path, help="Use a captured source JSON file while live parser research is in progress.")
     parser.add_argument("--input-html", type=Path, nargs="+", help="Use one or more captured store HTML pages and extract embedded product data.")
+    parser.add_argument("--input-text", type=Path, nargs="+", help="Use one or more captured text snapshots.")
     parser.add_argument("--city", default="astana", help="City slug used by the source page, for example astana or almaty.")
     parser.add_argument("--output", type=Path, default=Path("data/parsed_products.json"))
     parser.add_argument("--quality-output", type=Path, default=Path("data/quality_report.json"))
@@ -32,8 +35,14 @@ async def _run() -> None:
         parser = ArbuzParser(html_paths=args.input_html, city=args.city)
     elif args.input_json is not None:
         parser = JsonFileParser(store=store, path=args.input_json)
+    elif args.input_text is not None:
+        if store != "small":
+            raise SystemExit("--input-text is currently implemented for Small discount snapshots only.")
+        parser = SmallParser(snapshot_paths=args.input_text)
+    elif store == "magnum":
+        parser = MagnumParser()
     else:
-        raise SystemExit("Pass --input-json or --input-html.")
+        raise SystemExit("Pass --input-json, --input-html, --input-text, or use --store magnum for live API parsing.")
 
     products = await parser.fetch_products(limit=args.limit)
     report = build_quality_report(store, products)

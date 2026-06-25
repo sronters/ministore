@@ -1,0 +1,20 @@
+{
+  "store": "small",
+  "checked_at": "2026-06-25T19:41:32.951541Z",
+  "total_products": 10,
+  "in_stock_products": 10,
+  "unique_barcodes": 0,
+  "duplicate_external_ids": [],
+  "missing_barcode_count": 10,
+  "missing_package_count": 1,
+  "missing_image_count": 10,
+  "missing_product_url_count": 0,
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "missing_package",
+      "message": "Package value/unit is missing; matching quality will be lower.",
+      "external_id": "greenfield-kenyan-sunrise-25"
+    }
+  ]
+}

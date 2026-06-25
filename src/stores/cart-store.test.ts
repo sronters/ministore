@@ -1,21 +1,20 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { useCartStore } from "@/stores/cart-store";
-import { mockProducts } from "@/mocks/catalog";
+import type { Product } from "@/types/domain";
 
-const product = mockProducts[0];
-const summary = {
-  id: product.id,
-  name: product.name,
-  brand: product.brand,
-  category: product.category,
-  imageUrl: product.imageUrl,
-  packageValue: product.packageValue,
-  packageUnit: product.packageUnit,
-  minimumPrice: product.minimumPrice,
-  oldMinimumPrice: product.oldMinimumPrice,
-  offersCount: product.offersCount,
-  inStock: product.inStock,
-  updatedAt: product.updatedAt
+const summary: Product = {
+  id: "arbuz:230966",
+  name: "Milk 1 l",
+  brand: "FoodMaster",
+  category: { id: "dairy", name: "Dairy" },
+  imageUrl: null,
+  packageValue: 1,
+  packageUnit: "l",
+  minimumPrice: 843,
+  oldMinimumPrice: 1125,
+  offersCount: 1,
+  inStock: true,
+  updatedAt: "2026-06-25T00:00:00+00:00"
 };
 
 describe("cart store", () => {
